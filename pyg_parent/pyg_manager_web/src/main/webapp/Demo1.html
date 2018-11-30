@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="plugins/angularjs/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('ctr', function ($scope,$http) {
+            // $scope.add=function () {
+            //     $scope.z = parseInt($scope.x)+parseInt($scope.y);
+            // }
+            // $scope.list=[
+            //     {"name":"小泽","age":19},
+            //     {"name":"小苍","age":22},
+            //     {"name":"小悠","age":18}
+            // ];
+            $scope.findList = function () {
+                $http.get("data.json").success(
+                    function (reponse) {
+                        $scope.list = reponse;
+                    }
+                );
+            }
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="ctr" ng-init="findList()">
+<!--<input ng-model="x"><br>-->
+<!--<input ng-model="y"><br>-->
+<!--<button ng-click="add()">运算</button>-->
+<!--&lt;!&ndash;{{add()}}&ndash;&gt;-->
+<table>
+    <tr>
+        <td>姓名</td>
+        <td>年龄</td>
+    </tr>
+    <tr ng-repeat="p in list">
+        <!--<td>{{p}}</td>-->
+        <td>{{p.name}}</td>
+        <td>{{p.age}}</td>
+        <!--<td>{{p.age}}</td>-->
+    </tr>
+</table>
+
+</body>
+</html>
